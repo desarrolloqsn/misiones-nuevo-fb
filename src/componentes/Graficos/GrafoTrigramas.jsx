@@ -68,7 +68,7 @@ export default function GrafoTrigramas() {
         <div>Generado con los términos más mencionados</div>
         <div className='boton-abrir-externo'>
     <Tooltip title='Abrir en otro navegador'>
-    <a href={`https://qsngrafos.vercel.app/palabras/ven-ig/grafo_palabras-frecuentes-${filtroFecha}.html`} target="_blank"><Button  shape="circle">
+    <a href={`https://qsngrafos.vercel.app/palabras/misiones-fb/grafo_palabras-frecuentes-${filtroFecha}.html`} target="_blank"><Button  shape="circle">
         <MdOpenInNew/>
     </Button>
      </a>
