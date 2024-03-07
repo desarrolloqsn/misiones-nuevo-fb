@@ -23,7 +23,7 @@ export default function GrafoHashtagsMasFrecuentes(){
 const [fechas, setFechas] = useState(jsonFechas.fechas)
 const [filtroFecha, setFiltroFecha] = useState(fechas[0])
 
-const opciones = fechas.map((fecha, index) => {
+const opciones = fechas.slice(0, -1).map((fecha, index) => {
   return (
     <Select.Option key={index} value={fecha}>
       {fecha}

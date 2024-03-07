@@ -23,7 +23,7 @@ export default function EventosAutores() {
       return Array.isArray(propiedadModelo) && propiedadModelo.length > 0;
     });
     
-   console.log(datosGraficos);
+  // console.log(datosGraficos);
 
 
     const [actores, setActores] = useState(0);

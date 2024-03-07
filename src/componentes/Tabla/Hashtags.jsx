@@ -99,7 +99,7 @@ return(<div>
         <Button onClick={handleDownloadExcel} type="primary" shape="circle"  className='subtitulo-boton'><HiDocumentDownload/></Button>
         </Tooltip>
       </div>
-      <div className='carta' style={{minHeight: "485px"}}>
+  <div className='carta'>
   
    <Table columns={columns} dataSource={mencionesPorHashtag} onChange={onChange}  scroll={{
       y: 280,

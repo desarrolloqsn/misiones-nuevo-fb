@@ -159,7 +159,7 @@ const data = [
 
 const columns = [
   {
-    title: 'Repetidos',
+    title: 'Posteos',
     dataIndex: 'Tweets',
     width: '50%',
   
@@ -191,19 +191,19 @@ const columns = [
                 <div className='contenedor-tituloSubtitulo'>
                   <div className='titulo-tweet'>{item.name}</div>
                   {/* Título */}
-                  <div className='user-twitter'>{item.usuarioOriginal}</div>
+                  <div className='user-twitter'>@{item.usuarioOriginal}</div>
                          
                   
                   </div>
                   {/* Mapeo de usuarios categorizadores */}
-                  {/* {item.usuarioCategorizador_Comments.length > 0 && (
+                  {item.usuarioCategorizador_Comments.length > 0 && (
                     <div>
                       <div>Replying to</div>
                       <div className='replyingto'>
                         {item.usuarioCategorizador_Comments.map((usuario, index) => `@${usuario}`).join(' ')}
                       </div>
                     </div>
-                  )} */}
+                  )}
                  <div>{decodeText(item.texto)}</div>
                 {/* Texto */}
                 {item.imagen_tweet !== null && item.imagen_tweet.length > 0 ? (

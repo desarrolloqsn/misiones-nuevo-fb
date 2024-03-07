@@ -6,7 +6,7 @@ import {HiOutlineDocumentReport} from 'react-icons/hi'
 import { Checkbox, Col, Row } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  filtrarDatos,guardarHoras } from '../../redux/actions';
+import {  filtrarDatos, filtrarDatosPorTitulo, filtrarDatosPorTituloNoContiene, filtrarDatosSubserie, filtrarTweets, guardarFechas, guardarHoras } from '../../redux/actions';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { AiOutlineSearch, AiFillInfoCircle } from "react-icons/ai";
@@ -16,7 +16,6 @@ import isBetween from 'dayjs/plugin/isBetween';
 import { TreeSelect } from 'antd';
 const { SHOW_PARENT } = TreeSelect;
 
-// Importa la extensión `isBetween`
 dayjs.extend(isBetween);
 
 dayjs.extend(customParseFormat);
@@ -40,10 +39,6 @@ export default function Filtros() {
     const currentUrl = location.pathname;
     const subUrl = currentUrl.startsWith('/dashboard/') ? currentUrl.substring('/dashboard/'.length) : '';
     const modeloSinEspacios = decodeURIComponent(subUrl.replace(/\+/g, " "));
-    const [palabrasInput,setpalabrasInput] = useState([])
-    const [inputValues, setInputValues] = useState({});
-
-
      const tweetsFiltrados = datos.filter(tweet => {
       const propiedadModelo = tweet[modeloSinEspacios];
       return Array.isArray(propiedadModelo) && propiedadModelo.length > 0;
@@ -68,7 +63,6 @@ export default function Filtros() {
       const formattedFechaInicio = formatDate(fechaInicio);
       const formattedFechaFin = formatDate(fechaFin);
     
-      // console.log(formattedFechaInicio, formattedFechaFin);
       setFiltros((prevFiltros) => ({
         ...prevFiltros,
         fechaInicio: formattedFechaInicio,
@@ -87,33 +81,29 @@ export default function Filtros() {
       maxDate = dates.reduce((max, date) => (date.isAfter(max) ? date : max));
     }
     
-    // console.log('Fecha mínima:', formatDate(minDate));
-    // console.log('Fecha máxima:', formatDate(maxDate));
+
     
 
     const categoriasModelos = [
-      {modelo: "Atributos", categorias: ["Autoridad","Capacidad","Cercanía","Coherencia","Deshonestidad","Dinamismo","Falta de Autoridad","Falta de Capacidad","Falta de cercanía","Falta de Responsabilidad","Falta de sensibilidad","Falta de Trayectoria","Honestidad","Incoherencia","Interacción","Responsabilidad","Sensibilidad","Trayectoria" ]},
+      {modelo: "Atributos", categorias: ["Autoridad","Capacidad","Cercanía","Coherencia","Deshonestidad","Dinamismo","Falta de Autoridad","Falta de Capacidad","Falta de cercanía","Falta de Responsabilidad","Falta de sensibilidad","Falta de Trayectoria","Honestidad","Incoherencia", "Inaccion", "Responsabilidad","Sensibilidad","Trayectoria" ]},
       {modelo: "Clima%20social", categorias:["Autoritarismo","Cambio","Calma","Continuidad","Democracia","Desorden","Despolitizacion","División","Estabilidad","Individualismo","Inestabilidad", "Injusticia","Irritación","Justicia","Orden", "Unidad","Pertenencia Social","Politizacion"]},
       { modelo: "Continuidad%20y%20cambio", categorias: ["Cambio", "Continuidad"] },
       {modelo: "Emociones%20B%C3%A1sicas%20(Plutchik)", categorias: ["Alegría", "Previsión", "Rechazo", "Confianza", "Ira", "Miedo", "Sorpresa", "Tristeza"] },
-      {modelo:"Preocupaciones", categorias: ["Ambiente", "Conflictividad", "Corrupción", "Derechos Humanos","Educación", "Economía", "Trabajo","Tránsito y Vialidad", "Salud","Seguridad", "Vivienda","Obra Pública"]},
-      {modelo: "Red%20motivacional%20del%20voto", categorias: ["Voto Blanco", "Voto Clientelar", "Voto Emocional", "Voto Ganador", "Voto Ideológico", "Voto Partidario", "Voto Plebiscitario", "Voto Racional", "Voto de Ira", "Voto del Miedo", "Voto por carisma", "Voto Útil"] },
+      {modelo:"Preocupaciones", categorias: ["Ambiente","Actividad Economica", "Conflictividad", "Corrupción", "Derechos Humanos","Educación","Inflacion","Mercado Financiero", "Trabajo","Tránsito y Vialidad", "Salud","Seguridad", "Vivienda","Obra Pública"]},
+      {modelo: "Red%20motivacional%20del%20voto", categorias: ["Voto Blanco", "Voto Colectivo", "Voto Contextual", "Voto Clientelar","Voto de Plastico","Voto de Fe","Voto Experencial","Voto Circunstancial", "Voto Emocional", "Voto Ganador", "Voto Ideológico", "Voto Partidario", "Voto Plebiscitario", "Voto Racional", "Voto de Ira", "Voto del Miedo", "Voto por carisma", "Voto Útil"] },
       {modelo:"Sentimientos", categorias: ["Agotamiento","Agrado","Amor","Alegría","Altivez","Apatía","Aversión","Calma","Certeza","Compasíon","Desagrado","Deseo","Dolor","Duda","Entusiasmo","Frustración","Humillacion","Odio","Placer","Satisfacción","Tensíon","Valor","Vigor"]},
-      // { modelo: "Voto%20Emocional%20y%20Racional", categorias: ["Voto Emocional", "Voto Racional"] }
         ];
     
-    const categoriasModelosSelector = [
-      {modelo: "Atributos", categorias: ["Autoridad","Capacidad","Cercanía","Coherencia","Deshonestidad","Dinamismo","Falta de Autoridad","Falta de Capacidad","Falta de cercanía","Falta de Responsabilidad","Falta de sensibilidad","Falta de Trayectoria","Honestidad","Incoherencia","Interacción","Responsabilidad","Sensibilidad","Trayectoria" ]},
-      {modelo: "Clima social", categorias:["Autoritarismo","Cambio","Calma","Continuidad","Democracia","Desorden","Despolitizacion","División","Estabilidad","Individualismo","Inestabilidad", "Injusticia","Irritación","Justicia","Orden", "Unidad","Pertenencia Social","Politizacion"]},
-      {modelo:"Continuidad y cambio", categorias: ["Cambio", "Continuidad"] },
-      {modelo:"Emociones Básicas (Plutchik)", categorias: ["Alegría", "Previsión", "Rechazo", "Confianza", "Ira", "Miedo", "Sorpresa", "Tristeza"] },
-      {modelo:"Preocupaciones", categorias: ["Ambiente", "Conflictividad", "Corrupción", "Derechos Humanos","Educación", "Economía", "Trabajo","Tránsito y Vialidad", "Salud","Seguridad", "Vivienda","Obra Pública"]},
-      { modelo: "Red motivacional del voto", categorias: ["Voto Blanco", "Voto Clientelar", "Voto Emocional","voto Ganador", "Voto Ideológico", "Voto Partidario", "Voto Plebiscitario", "Voto Racional", "Voto de Ira", "Voto del Miedo", "Voto por carisma", "Voto Útil"] },
-      {modelo:"Sentimientos", categorias: ["Agotamiento","Agrado","Amor","Alegría","Altivez","Apatía","Aversión","Calma","Certeza","Compasíon","Desagrado","Deseo","Dolor","Duda","Entusiasmo","Frustración","Humillacion","Odio","Placer","Satisfacción","Tensíon","Valor","Vigor"]},
-      // { modelo: "Voto Emocional y Racional", categorias: ["Voto Emocional", "Voto Racional"] }
-      ];
+        const categoriasModelosSelector = [
+          {modelo: "Atributos", categorias: ["Autoridad","Capacidad","Cercanía","Coherencia","Deshonestidad","Dinamismo","Falta de Autoridad","Falta de Capacidad","Falta de cercanía","Falta de Responsabilidad","Falta de sensibilidad","Falta de Trayectoria","Honestidad","Incoherencia", "Inaccion", "Responsabilidad","Sensibilidad","Trayectoria" ]},
+          {modelo: "Clima social", categorias:["Autoritarismo","Cambio","Calma","Continuidad","Democracia","Desorden","Despolitizacion","División","Estabilidad","Individualismo","Inestabilidad", "Injusticia","Irritación","Justicia","Orden", "Unidad","Pertenencia Social","Politizacion"]},
+          { modelo: "Continuidad y cambio", categorias: ["Cambio", "Continuidad"] },
+          {modelo: "Emociones Basicas (Plutchik)", categorias: ["Alegría", "Previsión", "Rechazo", "Confianza", "Ira", "Miedo", "Sorpresa", "Tristeza"] },
+          {modelo:"Preocupaciones", categorias: ["Ambiente","Actividad Economica", "Conflictividad", "Corrupción", "Derechos Humanos","Educación","Inflacion","Mercado Financiero", "Trabajo","Tránsito y Vialidad", "Salud","Seguridad", "Vivienda","Obra Pública"]},
+          {modelo: "Red motivacional del voto", categorias: ["Voto Blanco", "Voto Colectivo", "Voto Contextual", "Voto Clientelar","Voto de Plastico","Voto de Fe","Voto Experencial","Voto Circunstancial", "Voto Emocional", "Voto Ganador", "Voto Ideológico", "Voto Partidario", "Voto Plebiscitario", "Voto Racional", "Voto de Ira", "Voto del Miedo", "Voto por carisma", "Voto Útil"] },
+          {modelo:"Sentimientos", categorias: ["Agotamiento","Agrado","Amor","Alegría","Altivez","Apatía","Aversión","Calma","Certeza","Compasíon","Desagrado","Deseo","Dolor","Duda","Entusiasmo","Frustración","Humillacion","Odio","Placer","Satisfacción","Tensíon","Valor","Vigor"]},
+          ];
 
-    // Función recursiva para construir el árbol
 function buildTree(data) {
   const tree = [];
 
@@ -145,21 +135,18 @@ function buildTree(data) {
   return tree;
 }
 
-// Generar el array treeData
 const treeData = buildTree(categoriasModelosSelector);
 
-// console.log(treeData);
 
     const dispatch = useDispatch();
 
-    // console.log("data", datos)
  
     const [filtroCumple, setFiltroCumple] = useState(null);
     const [filtros, setFiltros] = useState({
       serie: [],
       subserie: [],
       palabra: [],
-      sinpalabra: [], // Agregar esta línea para inicializar la propiedad sinpalabra
+      sinpalabra: [], 
       fechaInicio: formatDate(minDate),
       fechaFin: formatDate(maxDate),
       horaInicio: "00:00",
@@ -168,10 +155,8 @@ const treeData = buildTree(categoriasModelosSelector);
       modelo:[],
       categoria: [],
       anidados: false,
-      datos: datos
+      datos: datosFiltrados
     });
-
-
 
     useEffect(() => {
 
@@ -183,69 +168,32 @@ const treeData = buildTree(categoriasModelosSelector);
     }, [modeloSinEspacios]);
   
    
-    const handleFiltrarEventos = (value, key) => {
+    const handleFiltrarEventos = (value) => {
       if (value.trim() === "") {
-        // El valor está vacío, puedes mostrar un mensaje de error o realizar alguna acción apropiada.
         return;
       }
-      const updatedInputValues = {
-        ...inputValues,
-        [key]: {
-          condicion: filtroCumple === 'Eventos que cumplen' ? 'Eventos que cumplen' : "Eventos que no cumplen",
-          valor: value,
-        },
-      };
     
-      setInputValues(updatedInputValues);
-      
-      console.log(value, key);
-      
-      const updatedPalabrasInput = {
-        ...palabrasInput,
-        [`input${key}`]: {
-          condicion: filtroCumple === 'Eventos que cumplen' ? 'Eventos que cumplen' : "Eventos que no cumplen",
-          valor: value
-        }
-      };
+      const palabras = value.split(" ");
     
-      setpalabrasInput(updatedPalabrasInput);
-    
-      const cumplenArray = Object.keys(updatedPalabrasInput).reduce((arr, inputKey) => {
-        if (updatedPalabrasInput[inputKey].condicion === 'Eventos que cumplen') {
-          arr.push(updatedPalabrasInput[inputKey].valor);
-        }
-        return arr;
-      }, []);
-    
-      const palabraArray = cumplenArray.length > 0 ? cumplenArray : [];
-    
+      const palabrasUnicas = [...new Set(palabras.filter(palabra => palabra !== ""))];
+
       if (filtroCumple === 'Eventos que cumplen') {
         setFiltros((prevFiltros) => ({
           ...prevFiltros,
-          palabra: palabraArray,
-          datos: datos
+          palabra: filtros.palabra.concat(palabrasUnicas),
+          datos:datosFiltrados
         }));
-
       } else if (filtroCumple === 'Eventos que no cumplen') {
-        const cumplenArray = Object.keys(palabrasInput).reduce((arr, key) => {
-          if (palabrasInput[key].condicion === 'Eventos que no cumplen') {
-            arr.push(palabrasInput[key].valor);
-          }
-          return arr;
-        }, []);
-      
-        const palabraArray = cumplenArray.length > 0 ? cumplenArray : [value];
-      
         setFiltros((prevFiltros) => ({
           ...prevFiltros,
-          sinpalabra: prevFiltros.sinpalabra.concat(palabraArray),
-          datos: datos
+          sinpalabra: filtros.sinpalabra.concat(palabrasUnicas),
+          datos:datosFiltrados
         }));
       } else {
         setFiltros((prevFiltros) => ({
           ...prevFiltros,
-          palabra: filtros.palabra.concat(value),
-          datos:datos
+          palabra: filtros.palabra.concat(palabrasUnicas),
+          datos:datosFiltrados
         }));
       }
     };
@@ -269,29 +217,21 @@ const treeData = buildTree(categoriasModelosSelector);
    
     };
       
-        // Paso 1
       const seriesSet = new Set();
 
-      // Paso 2
       for (let i = 0; i < datos.length; i++) {
         const tweet = datos[i];
 
-        // Paso 3
         if (tweet.seriesName !== "") {
-          // Paso 4
           seriesSet.add(tweet.seriesName);
         }
       }
 
-      // Paso 5
       const seriesArray = Array.from(seriesSet);
-      // console.log(seriesArray);
         
 
-    // Paso 1: Crear un conjunto para las subseries únicas
       const subSeriesSet = new Set();
 
-      // Paso 2: Recorrer los datos y agregar las subseries al conjunto
       for (let i = 0; i < datos.length; i++) {
         const tweet = datos[i];
         const subSeries = tweet.subSeriesName;
@@ -303,23 +243,9 @@ const treeData = buildTree(categoriasModelosSelector);
         }
       }
 
-      // Paso 3: Convertir el conjunto en un array de subseries
       const subSeriesArray = Array.from(subSeriesSet);
-      subSeriesArray.sort((a, b) => {
-        // Compara las cadenas a y b en minúsculas
-        const lowerA = a.toLowerCase();
-        const lowerB = b.toLowerCase();
-      
-        if (lowerA < lowerB) return -1;
-        if (lowerA > lowerB) return 1;
-        return 0;
-      });
-      // Paso 4: Mostrar el array de subseries únicas
-      // console.log(subSeriesArray);
-
 
       const handleSeriesChange = (serieDato) => {
-        // console.log(serie)
         setFiltros((prevFiltros) => ({
           ...prevFiltros,
           serie: serieDato,
@@ -338,45 +264,20 @@ const treeData = buildTree(categoriasModelosSelector);
       
      
     const renderCode = () => {
-      let contadorKey = 0; 
-        return duplications.map((duplication) => {
-          contadorKey++; 
-          return (
-          <div key={contadorKey} className="filtro-texto">
+        return duplications.map((duplication) => (
+          <div key={duplication.key} className="filtro-texto">
             <Select placeholder="Filtro por palabra/autor/hashtag/mención" className="selectores-dash-eventos"  allowClear onChange={handleFiltroCumpleChange}>
               <Select.Option value="Eventos que cumplen" allowClear>Eventos que cumplen</Select.Option>
               <Select.Option value="Eventos que no cumplen" allowClear>Eventos que no cumplen</Select.Option>
             </Select>
             <Tooltip placement="top" title='Eliminar filtro' >
-            <Button type="primary" shape="circle" onClick={(e) => handleButtonClickDelete(contadorKey, e)} className='subtitulo-boton'>
+            <Button type="primary" shape="circle" onClick={(e) => handleButtonClickDelete(duplication.key, e)} className='subtitulo-boton'>
               -
             </Button>
             </Tooltip>
-            {/* <Select placeholder="Categoria" className="selectores-dash-eventos" allowClear>
-              <Select.Option value="Texto" allowClear>Texto</Select.Option>
-              <Select.Option value="Autores" allowClear>Autores</Select.Option>
-              <Select.Option value="Hashtags" allowClear>Hashtags</Select.Option>
-              <Select.Option value="Menciones" allowClear>Menciones</Select.Option>
-            </Select> */}
-          <Input
-          placeholder="Texto/Autor/Hashtag/Mención"
-          allowClear
-          onBlur={(e) => handleFiltrarEventos(e.target.value, contadorKey)}
-          onChange={(e) => handleInputChange(contadorKey, e.target.value)}
-          value={inputValues[contadorKey] ? inputValues[contadorKey].valor : ''}
-        />
- 
+           <Input placeholder="Texto/Autor/Hashtag/Mención" allowClear onBlur={(e) => handleFiltrarEventos(e.target.value)}></Input>
           </div>
-        )});
-        
-      };
-
-
-      const handleInputChange = (key, value) => {
-        setInputValues(prevInputValues => ({
-          ...prevInputValues,
-          [key]:{ valor: value }
-        }));
+        ));
       };
 
 
@@ -434,17 +335,6 @@ const treeData = buildTree(categoriasModelosSelector);
         return numero < 10 ? `0${numero}` : numero;
       }
       
-      
-   
-    
-    
-
-
-      
-
-    
-
-
       const handleHoraChange = (times) => {
        
         if(times){
@@ -491,6 +381,7 @@ const modeloEncontrado = categoriasModelos.find(item => item.modelo === subUrl);
 // Obtener la lista de categorías del modelo
 const categorias = modeloEncontrado ? modeloEncontrado.categorias : [];
 
+// console.log ('categorias', categorias)
 
 
 const selectProps = {
@@ -551,45 +442,58 @@ const disabledDate = current => {
 
 
   function sendFilter(){
-    if (filtros.horaInicio === "" && filtros.horaFin === "") {
-      filtros.horaInicio = '00:00';
-      filtros.horaFin = '23:59';
+    if(filtros.horaInicio === "" && filtros.horaFin === ""){
+      filtros.horaInicio = '00:00'
+      filtros.horaFin = '23:59'
     }
-  
-    const valores = {
-      serie: filtros.serie,
+    if(filtros.palabra.length < 1){
+    let valores =   
+    {serie: filtros.serie,
+    subserie: filtros.subserie,
+    palabra: [],
+    sinpalabra: filtros.sinpalabra,
+    fechaInicio: filtros.fechaInicio,
+    fechaFin: filtros.fechaFin,
+    horaInicio: filtros.horaInicio,
+    horaFin: filtros.horaFin,
+    polaridad: filtros.polaridad,
+    modelo:filtros.modelo,
+    categoria: filtros.categoria,
+    anidados: filtros.anidados,
+    datos: filtros.datos
+    }
+    // console.log(valores)
+    dispatch(filtrarDatos(valores));
+    }
+    if(filtros.sinpalabra.length < 1){
+      let valores =   
+      {serie: filtros.serie,
       subserie: filtros.subserie,
-      palabra: [],
+      palabra: filtros.palabra,
       sinpalabra: [],
       fechaInicio: filtros.fechaInicio,
       fechaFin: filtros.fechaFin,
       horaInicio: filtros.horaInicio,
       horaFin: filtros.horaFin,
       polaridad: filtros.polaridad,
-      modelo: filtros.modelo,
+      modelo:filtros.modelo,
       categoria: filtros.categoria,
       anidados: filtros.anidados,
-     datos:datos
-    };
-  
-    // Agregar los valores de inputValues a los filtros
-    for (const key in inputValues) {
-      if (inputValues[key].condicion === 'Eventos que cumplen') {
-        valores.palabra.push(inputValues[key].valor);
-      } else if (inputValues[key].condicion === 'Eventos que no cumplen') {
-        valores.sinpalabra.push(inputValues[key].valor);
+      datos: filtros.datos
       }
+      dispatch(filtrarDatos(valores));
     }
-    console.log(inputValues)
-    console.log(valores);
-    console.log(filtros.palabra,filtros.sinpalabra)
-    dispatch(filtrarDatos(valores));
+    dispatch(filtrarDatos(filtros));
+    setFiltros(prevFiltros => ({
+      ...prevFiltros,
+      palabra:[],
+      sinpalabra:[]
+    }));
+  
   }
-
-
   return (
     <div>
-    <div className='nombreDashboard'>Análisis - Misiones FB {modeloSinEspacios ? `- ${modeloSinEspacios}` : null}</div>
+    <div className='nombreDashboard'>Dashboard - Misiones - FB {modeloSinEspacios ? `- ${modeloSinEspacios}` : null}</div>
     <div className='contenedor-filtros'>
      <div className='boton-informe'>
      <Tooltip placement="top" title='Generar informe' >
@@ -607,7 +511,7 @@ const disabledDate = current => {
         onChange={handleFechaChange}
         defaultValue={[dayjs(initialValues[0], dateFormat), dayjs(initialValues[1], dateFormat)]}
         format={dateFormat}
-        disabledDate={disabledDate}  // Propiedad para deshabilitar fechas específicas
+        disabledDate={disabledDate}
         className="selectores-dash-eventos"
       />
       <div className='filtro-texto-hora'>
@@ -618,7 +522,6 @@ const disabledDate = current => {
         format='HH:mm'
         allowClear={true}
         onChange={handleHoraChange}
-        // defaultValue={initialValuesHora}
       className="selectores-dash-hora"
         
       />
@@ -633,7 +536,7 @@ const disabledDate = current => {
       <Select
         placeholder="Serie"
         onChange={handleSeriesChange}
-        allowClear // Habilitar la funcionalidad de borrado
+        allowClear 
         {...selectPropsSerie}
         className="selectores-dash-eventos"
       >
@@ -650,7 +553,7 @@ const disabledDate = current => {
         placeholder="Subserie"
         className="selectores-dash-eventos"
         onChange={handleSubSeriesChange}
-        allowClear // Habilitar la funcionalidad de borrado
+        allowClear 
         disabled={subSeriesArray.length === 0}
         {...selectPropsSub}
       >
@@ -718,19 +621,13 @@ const disabledDate = current => {
      </Button>
      </Tooltip> 
     
-     <Input
-        placeholder="Texto/Autor/Hashtag/Mención"
-        allowClear
-        onBlur={(e) => handleFiltrarEventos(e.target.value, 0)}
-        onChange={(e) => handleInputChange(0, e.target.value)}
-        value={inputValues[0] ? inputValues[0].valor : ''}
-      /> 
+     
+     <Input placeholder="Texto/Autor/Hashtag/Mención" allowClear onBlur={(e) => handleFiltrarEventos(e.target.value)}></Input>
 
      </div> 
 
      
-
-    {renderCode()} 
+     {renderCode()} 
     <Checkbox onChange={onChangeCheck}>Añadir filtro con datos anidados</Checkbox>
     <Button type='primary' onClick={sendFilter} className='subtitulo-boton'>Filtrar</Button>
    </div>

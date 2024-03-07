@@ -17,13 +17,14 @@ export default function GraphHashtags(){
  const [fechas, setFechas] = useState(jsonFechas.fechas)
  const [filtroFecha, setFiltroFecha] = useState(fechas[0])
 
- const opciones = fechas.slice(0, -1).map((fecha, index) => {
-   return (
-     <Select.Option key={index} value={fecha}>
-       {fecha}
-     </Select.Option>
-   );
- });
+ const opciones = fechas
+ .filter((fecha, index) => index > fechas.length - 4) // Filtra las últimas 3 fechas
+ .map((fecha, index) => (
+   <Select.Option key={index} value={fecha}>
+     {fecha}
+   </Select.Option>
+ ));
+
 
  const handleFiltroFechaChange = (valor) => {
    setFiltroFecha(valor);
@@ -46,7 +47,7 @@ export default function GraphHashtags(){
     <div className='grafo-video'>
     
     <Tooltip title="Click para ver el grafo">
-    <a href={`https://qsngrafos.vercel.app/co-ocurrencia/lanus/grafo_co-ocurencia_hashtags-${filtroFecha}.html`} target="_blank">
+    <a href={`https://qsngrafos.vercel.app/co-ocurrencia/13467981/grafo_co-ocurencia_hashtags-${filtroFecha}.html`} target="_blank">
     <div className='video-explicativo cartaGrafo'>
       <img src={imagen} className='imagen-grafo' />
     </div>

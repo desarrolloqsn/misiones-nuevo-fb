@@ -100,7 +100,7 @@ export default function CantidadHashtags() {
         <Button onClick={handleDownloadExcel} type="primary" shape="circle"  className='subtitulo-boton'><HiDocumentDownload/></Button>
         </Tooltip>
       </div>
-      <div className='carta' style={{minHeight: "485px"}}>
+      <div className='carta'>
         <Table columns={columns} dataSource={mencionesContadas} onChange={onChange} scroll={{ y: 280 }} />
       </div>
     </div>

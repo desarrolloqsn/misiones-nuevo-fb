@@ -24,7 +24,7 @@ export default function NubePalabras() {
   }, [filtroFecha]);
 
  
-console.log('series', series)
+
   const opcionesFechas = fechas.map((fecha, index) => (
     <Select.Option key={index} value={fecha}>
       {fecha.slice(0, 10)}
@@ -44,7 +44,7 @@ console.log('series', series)
     colorField: 'palabra',
     color:['#8A2BE2','#A52A2A','#D2691E','#00008B','#556B2F','#00CED1','#B22222','#008000','#F08080','#FF00FF','#66CDAA','#FFA500',
     '#BC8F8F','#8B4513','#008080'],
-   
+    
     wordStyle: {
       fontFamily: 'Verdana',
       fontSize: [8, 32],

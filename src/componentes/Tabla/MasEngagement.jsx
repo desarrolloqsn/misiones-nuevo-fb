@@ -29,7 +29,7 @@ export default function MasEngagement (){
           // Paso 2: Sumar las propiedades "citas", "retweets", "likes", "comentarios" y "vistas"
           const { citas, retweets, likes, comentarios } = tweet;
           const totalInteracciones = citas + retweets + likes + comentarios;
-          // console.log(totalInteracciones)
+
           // Paso 3: Almacenar la suma en una nueva propiedad del objeto
           tweet.totalInteracciones = totalInteracciones;
         });
@@ -131,7 +131,7 @@ return(<div>
         <Button onClick={handleDownloadExcel} type="primary" shape="circle"  className='subtitulo-boton'><HiDocumentDownload/></Button>
         </Tooltip>
       </div>
-      <div className='carta' style={{minHeight: "485px"}}>
+  <div className='carta'>
   
    <Table columns={columns} dataSource={categorizadores} onChange={onChange}  scroll={{
       y: 280,

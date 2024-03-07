@@ -117,6 +117,7 @@ function renderStatistic(containerWidth, text, style) {
           fontSize: '20px',
         },
         customHtml: (container, view, datum, data) => {
+          console.log(data)
           const { width } = container.getBoundingClientRect();
           const totalValue = data.reduce((total, d) => total + d.value, 0);
           const percentage = totalValue !== 0 ? ((datum ? datum.value : totalValue) / totalValue * 100).toFixed(2) : 0;

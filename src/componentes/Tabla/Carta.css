@@ -7,24 +7,15 @@
     padding-bottom: 2rem;
     border: 1px solid rgba(0, 0, 0, 0.303);
     border-radius: 10px;
-    
-    overflow: auto;
-    background-color: #ffffffef;
-}
+    background-color:rgba(216, 215, 215, 0.164); 
+    overflow: auto
 
-.contenedor-comentarios{
-    display: flex;
-    flex-direction: column;
 }
 
 .link-tweet{
     display: flex;
     flex-wrap: wrap;
     
-}
-
-.user-fb{
-    font-weight: 600;
 }
 
 .replyingto{
@@ -70,8 +61,6 @@
 
 
 
-
-
 .ant-table-column-has-actions .ant-table-filter-trigger {
     display: none !important;
   }
@@ -81,22 +70,9 @@
     width: 80%;
 }
 
-.contenedor-publicacionfb{
-    width: 70%;
-}
-
 .contenedor-perfil{
-    width: 12%;
+    width: 10%;
 }
-.contenedor-perfilfb{
-    width: 15%;
-}
-.comentario-facebook{
-    border: 1px solid rgba(216, 215, 215, 0.164);
-    border-radius: 20px;
-    background-color:rgba(216, 215, 215, 0.164); 
-}
-
 
 .user-twitter{
     margin-left: 0.5rem;
@@ -129,15 +105,6 @@
     width: 100%;
     z-index: 999;
    
-  }
-
-  .comentariofb{
-    display: flex;
-    margin-bottom:0.5rem
-  }
-
-  .citado{
-    padding:0.5rem
   }
 
   @media only screen and (max-width: 767px) {

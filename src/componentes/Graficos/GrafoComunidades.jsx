@@ -15,15 +15,16 @@ export default function GraphComunidades(){
 
 // FILTRO FECHAS
 const [fechas, setFechas] = useState(jsonFechas.fechas)
+console.log(jsonFechas)
 const [filtroFecha, setFiltroFecha] = useState(fechas[0])
 
-const opciones = fechas.slice(0, -1).map((fecha, index) => {
-  return (
-    <Select.Option key={index} value={fecha}>
-      {fecha}
-    </Select.Option>
-  );
-});
+const opciones = fechas
+.filter((fecha, index) => index > fechas.length - 4) // Filtra las últimas 3 fechas
+.map((fecha, index) => (
+  <Select.Option key={index} value={fecha}>
+    {fecha}
+  </Select.Option>
+));
 
 const handleFiltroFechaChange = (valor) => {
   setFiltroFecha(valor);
@@ -37,7 +38,6 @@ const handleFiltroFechaChange = (valor) => {
     <div className="fondo-grafo">
     <div className="card-body">
 
-
     {/* FILTRO FECHAS */}
     <Select placeholder="Fechas" className='fechas-grafos' onChange={handleFiltroFechaChange} defaultValue={filtroFecha}>
       {opciones}
@@ -48,7 +48,7 @@ const handleFiltroFechaChange = (valor) => {
     <div className='grafo-video' >
   
     <Tooltip title="Click para ver el grafo">
-    <a href={`https://qsngrafos.vercel.app/hasgtags-menciones/lanus/grafo_hashtags_menciones-${filtroFecha}.html`} target="_blank">
+    <a href={`https://qsngrafos.vercel.app/hasgtags-menciones//grafo_hashtags_menciones-${filtroFecha}.html`} target="_blank">
     <div className='video-explicativo cartaGrafo'>
       <img src={imagen} className='imagen-grafo' />
     </div>

@@ -2,8 +2,9 @@
     display: flex;
     width: 90%;
     gap: 1.5rem;
-    /* margin:3rem; */
-    margin-left: 3rem;
+    /* margin-top:3rem; */
+    margin-bottom:3rem;
+    margin-left:3rem;
     flex-wrap: wrap !important;
 }
 .grafo-video{
@@ -16,20 +17,6 @@
     width: 50%;
 }
 
-.grafico-cuarto{
-    width: 25%;
-    
-}
-
-.grafico-treemap{
-    width: 40%;
-}
-
-.grafico-barras{
-    width: 60%;
-}
-
-
 .dashboardgrafos{
     width: 100%;
 }
@@ -40,6 +27,48 @@
     gap:1rem;
  
 } 
+.custom-placeholder {
+    color: rgb(110, 110, 110); /* Cambia 'blue' al color deseado */
+  }
+
+
+.subtitulo-boton{
+    background-color: #f97000 !important
+}
+
+.subtitulo-boton:hover{
+    background-color: #a6a6a6 !important
+}
+
+
+.ant-menu-dark{
+    background-color: #f97000  !important;
+    color:white
+}
+.ant-layout-sider{
+   background-color: #f97000  !important;
+     color:white
+}
+.ant-menu-inline{
+    background-color: #f97000  !important;
+    color:white
+}
+
+.ant-menu-sub{
+    background-color:rgb(227, 227, 227)  !important ;
+    color:rgb(36, 36, 36) !important
+}
+
+
+.ant-menu-item:hover{
+    background-color:rgb(168, 168, 168)  !important ;
+    color:rgb(36, 36, 36) !important 
+}
+
+
+.ant-layout-sider-trigger{
+    background-color: #f97000 !important
+}
 
 .grafico-grande{
     width: 78%;
@@ -57,12 +86,23 @@
     width: 100%;
 }
 
+
+.grafico-treemap{
+    width: 40%;
+}
+
+.grafico-barras{
+    width: 60%;
+}
+
+
 .grafico-doble{
     width: 49.5%;
 }
 
 .nombreDashboard{
-    background-color: #6b6b6bba;
+    /* background-color: #6b6b6bba; */
+    background-color: #f97000 ;
     width: 100%;
     padding: 1rem;
     color:white;
@@ -148,10 +188,6 @@
     .grafico-doble{
         width: 100% !important;
     }
-    .grafico-cuarto{
-        width: 100% !important;
-        
-    }
 
 
     .columna{
@@ -160,7 +196,7 @@
         gap:1rem;
         flex-wrap: wrap !important;
     } 
-
+    
     .grafico-treemap{
         width: 100% !important;
     }
@@ -168,6 +204,5 @@
     .grafico-barras{
         width: 100% !important;
     }
-    
       }
   

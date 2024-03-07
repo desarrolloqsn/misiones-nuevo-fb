@@ -20,6 +20,7 @@ import CantidadHashtags from '../../componentes/Tabla/CantidadHashtags'
 import { TreemapModelo } from '../../componentes/Graficos/TreemapModelo'
 import MapaCalorPolaridad from '../../componentes/Graficos/MapaCalorPolaridad'
 import TablaTweetsRepetidos from '../../componentes/Tabla/TweetsRepetidos'
+import Mapa from '../../componentes/Graficos/Mapa'
 
 
 export default function GraficosModelos() {
@@ -40,6 +41,13 @@ export default function GraficosModelos() {
           <EventosAutores />
         </div>
       </div>
+
+      <div className='columna'>
+        <div className='grafico-unico'>
+          <Mapa/>
+        </div>
+      </div>
+
       <div className='columna'>
         <div className='grafico-mediano'>
           <MapaCalor />

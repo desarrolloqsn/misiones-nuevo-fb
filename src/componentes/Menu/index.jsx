@@ -109,10 +109,10 @@ const MenuDesplegable = () => {
 
     </SubMenu>  
 
-    <Menu.Item key="/grafos" icon={<GrGraphQl />}>
+    {/* <Menu.Item key="/grafos" icon={<GrGraphQl />}>
         <span>Grafos</span>
         <Link to="/dashboard/grafos"></Link>
-      </Menu.Item>
+      </Menu.Item> */}
 {/* 
     <Menu.Item key="/dashboard/series" icon={  <TbCategory />}>
        

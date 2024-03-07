@@ -4,22 +4,63 @@
     height: 300px;
     justify-content: center;
     padding-top: 4rem !important;
-   color:#3ece0096
+
 }
 
-.grafo-eventos-alcance{
-    margin-top: 0.7rem;
+.titulo-modelo{
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 100;
+    margin-bottom: 1rem;
+}
+
+.modelos-grafos{
+display: flex;
+flex-wrap: wrap;
+gap:1rem;
+justify-content: center;
 }
 
 .imagen-grafo{
   width: 100%;
-  border-radius: 10px;
 }
 
-.imagen-grafo-eventos{
-    width: 100%;
-  
+.imagen-grafo-hashtags{
+    width: 65%;
+    border-radius: 10px;
   }
+  
+
+.imagen-grafo-modelos{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.graficoindividualgrafo{
+    width: 100%;
+}
+
+.graficosbarra{
+    display: flex;
+    width: 100%;
+    gap:1rem;
+    justify-content: space-around;
+}
+
+.serie-grafos{
+    width: 15%;
+    margin-left: 1rem;
+}
+
+.filtrografos{
+    width: 100%;
+}
+
+
+.boton-abrirnavegador{
+    margin-left:1rem
+}
 
 .contenedor-tooltip-polar{
     padding-top: 1rem ;
@@ -39,20 +80,29 @@
 }
 
 .subtitulo-boton{
-    background-color: #fe8f33ba
+    background-color: #f97000 
 }
 
 .subtitulo-boton:hover{
-    background-color: #f97000 !important
+    background-color: #a6a6a6 !important
 }
 
 .nubepalabras{
     max-height: 480px !important;
 }
 
-.boton-abrir-externo{
-    display: flex;
-justify-content: end;
+.cartagraficosindibiduales{
+    border: 0.5px solid rgb(212, 212, 212);
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+   /*  box-shadow: 10px 10px 5px 0px rgba(211,211,211,0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(211,211,211,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(211,211,211,0.75);  */
+  box-shadow: 2px 4px 5px -2px rgba(182, 182, 182, 0.75);
+-webkit-box-shadow: 2px 4px 5px -2px rgba(182, 182, 182, 0.75);
+-moz-box-shadow: 2px 4px 5px -2px rgba(182, 182, 182, 0.75);
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 
@@ -76,26 +126,6 @@ justify-content: end;
     margin-bottom: 1rem;
 } 
 
-.cartaGrafoEventos{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center !important;
-    text-align: center !important;  
-    border: 0.5px solid rgb(212, 212, 212);
-    border-radius: 20px;
-    background-color: rgb(255, 255, 255);
-   /*  box-shadow: 10px 10px 5px 0px rgba(211,211,211,0.75);
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(211,211,211,0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(211,211,211,0.75);  */
-  box-shadow: 2px 4px 5px -2px rgba(182, 182, 182, 0.75);
--webkit-box-shadow: 2px 4px 5px -2px rgba(182, 182, 182, 0.75);
--moz-box-shadow: 2px 4px 5px -2px rgba(182, 182, 182, 0.75);
-    padding: 1rem;
-    margin-bottom: 1rem;
-    min-height: 480px;
-}
-
 
 .cartaGrafo{
     display: flex;
@@ -117,10 +147,6 @@ justify-content: end;
     margin-bottom: 1rem;
    
 } 
-
-.subtitulo-grafo{
-    padding-left:1rem
-}
 
 .carta2{
     display: flex;
@@ -177,6 +203,24 @@ justify-content: end;
    
 }
 
+.grafo-video-modelos{
+    display: flex;
+    width: 30%;
+    gap:0.5rem;
+    margin-bottom: 1rem;
+    border: 0.5px solid rgb(212, 212, 212);
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+   /*  box-shadow: 10px 10px 5px 0px rgba(211,211,211,0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(211,211,211,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(211,211,211,0.75);  */
+  box-shadow: 2px 4px 5px -2px rgba(182, 182, 182, 0.75);
+-webkit-box-shadow: 2px 4px 5px -2px rgba(182, 182, 182, 0.75);
+-moz-box-shadow: 2px 4px 5px -2px rgba(182, 182, 182, 0.75);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
 .video-texto{
     display: flex;
     flex-direction: column;
@@ -211,13 +255,14 @@ justify-content: end;
 }
 
 .fechas{
-    margin-top:1rem ;
-    margin-bottom: 1rem;
+    margin-top:2rem ;
 }
 
 .fechas-grafos{
-    width: 20%;
+    width: 13%;
     margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .bigramas-trigramas{
@@ -256,6 +301,18 @@ justify-content: end;
 .texto-explicativo-fechas{
     height: 23rem;
     justify-content: start;
+}
+.flex-container{
+    display:flex
+}
+.download{
+
+    margin-left:15px;
+    background-color: #f97000;
+}
+.download:hover{
+
+    background-color: #1e3236 !important;
 }
 
 @media (max-width: 768px) {

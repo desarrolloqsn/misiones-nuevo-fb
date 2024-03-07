@@ -1,5 +1,5 @@
-import { Area ,Line} from '@ant-design/plots';
-import { Button, Modal, Tooltip } from 'antd';
+import { Area, Line } from '@ant-design/plots';
+import { Button, Modal, Spin, Tooltip } from 'antd';
 import XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { write, utils } from 'xlsx';
@@ -11,6 +11,13 @@ import {HiDocumentDownload} from 'react-icons/hi'
 
 export default function LineaEventos() {
     const [isModalVisible, setIsModalVisible] = useState(false);
+
+
+    const loading = useSelector(state=>state.loadingGetDataDash)
+    const error = useSelector(state=>state.errorFiltros)
+
+
+
     const datos = useSelector(state=> state.datosFiltrados)
     const location = useLocation();
     const currentUrl = location.pathname;
@@ -170,12 +177,11 @@ const handleModoClick = () => {
         sortedData = data ? data.sort((a, b) =>a.Dia - b.Dia) : null;
      }
 
-    const config = {
+     const config = {
       data: sortedData,
       xField: 'Dia',
       yField: 'Valor',
       seriesField: 'Series',
-      smooth: true,
       slider: {
         start: 0,
         end: 1,
@@ -186,7 +192,47 @@ const handleModoClick = () => {
           duration: 5000,
         },
       },
+      seriesField: 'Series',
+      smooth: true,
+      tension: 1, // Hace que las líneas sean curvas
     };
+
+
+     
+        // Paso 1
+        const seriesSet = new Set();
+
+        // Paso 2
+        for (let i = 0; i < datos.length; i++) {
+          const tweet = datos[i];
+  
+          // Paso 3
+          if (tweet.seriesName !== "") {
+            // Paso 4
+            seriesSet.add(tweet.seriesName);
+          }
+        }
+          
+  
+      // Paso 1: Crear un conjunto para las subseries únicas
+        const subSeriesSet = new Set();
+  
+        // Paso 2: Recorrer los datos y agregar las subseries al conjunto
+        for (let i = 0; i < datos.length; i++) {
+          const tweet = datos[i];
+          const subSeries = tweet.subSeriesName;
+  
+          if (Array.isArray(subSeries)) {
+            subSeries.forEach((subSerie) => {
+              subSeriesSet.add(subSerie);
+            });
+          }
+        }
+  
+        // Paso 3: Convertir el conjunto en un array de subseries
+        const subSeriesArray = Array.from(subSeriesSet);
+   
+  
 
 
     const handleDownloadExcel = () => {
@@ -213,19 +259,13 @@ const handleModoClick = () => {
       <div className='titulo-carta'>Linea de eventos</div>
       <div className='subtitulo-carta'>
         <div>Cantidad de eventos por día</div>
-        <Button onClick={handleModoClick} type="primary"  className='subtitulo-boton'>
-        {modo === 'serie' ?   'Por Subserie' : 'Por Serie'}
-      </Button>
-      <Button onClick={handleModoClick} type="primary"  className='subtitulo-boton'>
-        {modo === 'serie' ?   'Por Subserie' : 'Por Serie'}
-      </Button>
         <Tooltip title="Descargar Excel">
         <Button onClick={handleDownloadExcel} type="primary" shape="circle"  className='subtitulo-boton'><HiDocumentDownload/></Button>
         </Tooltip> </div>
       
       
+        <Line {...config} className='lineaEventos carta' style={{ height: '300px' }} />
 
-      <Line {...config} className='lineaEventos carta' style={{ height: '300px' }} />
       
       <Modal title="Mi Modal" open={isModalVisible} onCancel={handleCloseModal} onOk={handleCloseModal}>
         Contenido del modal

@@ -74,7 +74,8 @@ export default function CantidadMenciones (){
 return(<div>
   <div className='titulo-carta'>Influenciadores</div>
    <div className='subtitulo-carta'>Mas Mencionados</div>
-   <div className='carta' style={{minHeight: "485px"}}>
+  <div className='carta'>
+  
    <Table columns={columns} dataSource={mencionesPorHashtag} onChange={onChange}  scroll={{
       y: 280,
     
